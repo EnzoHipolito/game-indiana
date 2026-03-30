@@ -1,11 +1,10 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 body {
-    background: #1a0e02;
+    background-color: #1a0e02;
     font-family: 'Cinzel', serif;
     height: 100vh;
     display: flex;
@@ -29,22 +28,20 @@ nav {
 }
 
 nav a {
-    display: block;
     width: 260px;
-    padding: 14px 0;
+    padding: 14px;
     text-align: center;
     text-decoration: none;
     font-size: 0.95rem;
     letter-spacing: 0.25em;
-    text-transform: uppercase;
     color: #c9a227;
     border: 1px solid #7a5c0a;
-    background: rgba(201,162,39,0.05);
+    background-color: rgba(201,162,39,0.05);
     transition: all 0.2s;
 }
 
 nav a:hover {
-    background: rgba(201,162,39,0.12);
+    background-color: rgba(201,162,39,0.12);
     border-color: #c9a227;
     color: #f0c84a;
     letter-spacing: 0.32em;

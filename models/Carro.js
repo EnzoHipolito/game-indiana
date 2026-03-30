@@ -85,8 +85,8 @@ class Carro extends Obj{
         this.y += this.dir
         if(this.y < 62){
             this.y = 62
-        }else if(this.y > 692){
-            this.y = 692
+        }else if(this.y > 607){
+            this.y = 606
         }
     }
 
@@ -128,7 +128,7 @@ class Carro extends Obj{
 
 class CarroInimigo extends Obj{
 
-    vel = 2
+    vel = 3
 
     recomeca(){
         this.x = 1300
@@ -145,7 +145,7 @@ class CarroInimigo extends Obj{
 
 class Artefato extends Obj{
 
-    vel = 3
+    vel = 0
 
     recomeca(){
         this.x = 1300
@@ -153,6 +153,23 @@ class Artefato extends Obj{
     }
 
     mov_art(){
+        this.x -= this.vel
+        if(this.x <= - 200){            
+            this.recomeca()         
+        }
+    }
+}
+
+class Heart extends Obj{
+
+    vel = 2
+
+    recomeca(){
+        this.x = 1300
+        this.y =  Math.floor(Math.random() * (638 - 62) + 62)
+    }
+
+    mov_heart(){
         this.x -= this.vel
         if(this.x <= - 200){            
             this.recomeca()         

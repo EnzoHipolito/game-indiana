@@ -4,7 +4,7 @@
 }
 
 body{
-    background-image: url('./img/image_bg.png');
+    background-image: url('../img/image_bg.png');
     background-size: cover;
     background-repeat: no-repeat;
     color: rgb(186, 186, 186);
@@ -17,6 +17,5 @@ canvas{
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(black, white);
 }
 

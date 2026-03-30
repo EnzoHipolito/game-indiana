@@ -1,4 +1,5 @@
 let des = document.getElementById('des').getContext('2d')
+let canvas = document.getElementById('des')
 
 let carroInimigo = new CarroInimigo(1300, 325, 60, 60, '/img/rock_image.png')
 let carroInimigo2 = new CarroInimigo(1450, 125, 60, 60, '/img/rock_image.png')
@@ -8,9 +9,12 @@ let carroInimigo5 = new CarroInimigo(1700, 400, 60, 60, '/img/rock_image.png')
 let artefato = new Artefato(1450, 625, 30, 30, '/img/artefact_image.png')
 let artefato2 = new Artefato(2030, 300, 30, 30, '/img/artefact_image.png')
 let artefato3 = new Artefato(1700, 625, 30, 30, '/img/artefact_image.png')
+let heart = new Heart(1700, 500, 30, 30, '/img/heart.png')
 
-let carro  = new Carro(100, 325, 60, 85, '../img/indiana_001_bg.png')
-let carro2 = new Carro(100, 500, 60, 85, '../img/indiana_001_bg.png')
+let carro  = new Carro(100, 325, 60, 85, './img/indiana_001_bg.png')
+let carro2 = new Carro(100, 500, 60, 85, './img/indiana_001_bg.png')
+
+canvas.style.background = 'url(./img/jungle.png) center/cover'
 
 let t1 = new Text()
 let t2 = new Text()
@@ -49,6 +53,10 @@ document.addEventListener('keyup', (e) => {
     }
 })
 
+function random(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function game_over() {
     if (carro.vida <= 0 && carro2.vida <= 0) {
         jogar = false
@@ -58,6 +66,8 @@ function game_over() {
                 carro2.vida = 5
                 carro.pontos  = 0
                 carro2.pontos = 0
+                carro.x = 100
+                carro2.x = 100
 
                 jogar = true
                 fase = 1
@@ -77,20 +87,22 @@ function game_over() {
 }
 
 function ver_fase() {
-    if (carro.pontos > 20 && fase === 1) {
+    if ((carro.pontos > 50 || carro2.pontos > 50) && fase == 1) {
         fase = 2
-        carroInimigo.vel  = 5
-        carroInimigo2.vel = 5
-        carroInimigo3.vel = 5
-        carroInimigo4.vel = 5
-        carroInimigo5.vel = 5
-    } else if (carro.pontos > 40 && fase === 2) {
+        carroInimigo.vel  = random(3, 6)
+        carroInimigo2.vel = random(3, 6)
+        carroInimigo3.vel = random(3, 6)
+        carroInimigo4.vel = random(3, 6)
+        carroInimigo5.vel = random(3, 6)
+        canvas.style.background = 'url(./img/cave.png) center/cover'
+    } else if ((carro.pontos > 100 || carro2.pontos > 100) && fase == 2) {
         fase = 3
-        carroInimigo.vel  = 7
-        carroInimigo2.vel = 7
-        carroInimigo3.vel = 7
-        carroInimigo4.vel = 7
-        carroInimigo5.vel = 7
+        carroInimigo.vel  = random(7, 10)
+        carroInimigo2.vel = random(7, 10)
+        carroInimigo3.vel = random(7, 10)
+        carroInimigo4.vel = random(7, 10)
+        carroInimigo5.vel = random(7, 10)
+        canvas.style.background = 'url(./img/desert.jpeg) center/cover'
     }
 }
 
@@ -110,6 +122,11 @@ function coleta() {
         if (carro.colid(artefato3))  carro.pontos += 5
         if (carro2.colid(artefato3)) carro2.pontos += 5
         artefato3.recomeca()
+    }
+    if (carro.colid(heart) || carro2.colid(heart)) {
+        if (carro.colid(heart))  carro.vida += 1
+        if (carro2.colid(heart)) carro2.vida += 1
+        heart.recomeca()
     }
 }
 
@@ -166,6 +183,7 @@ function desenha() {
         artefato.des_carro()
         artefato2.des_carro()
         artefato3.des_carro()
+        heart.des_carro()
 
         // HUD P1 — topo (idêntico ao original)
         t1.des_text('Pontos: ' + carro.pontos, 1000, 40, 'yellow', '26px Arial')
@@ -189,14 +207,21 @@ function atualiza() {
         if (carro.vida  > 0){
             carro.mov_car()
             carro.des_carro()
+            t3.des_text('P1', carro.x  + 18, carro.y  - 8, '#4da6ff', 'bold 16px Arial')
         }else{
             carro.x = -300
         }
         if (carro2.vida > 0){
             carro2.mov_car()
             carro2.des_carro()
+            t3.des_text('P2', carro2.x + 18, carro2.y - 8, '#ff6b6b', 'bold 16px Arial')
         }else{
             carro2.x = -300
+        }
+        if(artefato.vel == 0 && artefato2.vel == 0 && artefato3.vel == 0){
+            artefato.vel = random(3, 6)
+            artefato2.vel = random(3, 6)
+            artefato3.vel = random(3, 6)
         }
         carroInimigo.mov_car()
         carroInimigo2.mov_car()
@@ -206,6 +231,7 @@ function atualiza() {
         artefato.mov_art()
         artefato2.mov_art()
         artefato3.mov_art()
+        heart.mov_heart()
         carro.anim('indiana_00')
         carro2.anim('indiana_00')
         colisao()
