@@ -26,8 +26,8 @@ class Personagem extends Obj{
         this.y += this.dir
         if(this.y < 62){
             this.y = 62
-        }else if(this.y > 607){
-            this.y = 606
+        }else if(this.y > 583){
+            this.y = 582
         }
     }
 
