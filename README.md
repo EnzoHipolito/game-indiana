@@ -16,13 +16,20 @@
 
 ## 1. Identificação do Projeto
 
-| | |
-|---|---|
-| **Título** | Indiana Bones |
-| **Desenvolvedor** | Enzo Hipólito |
-| **GitHub** | [@EnzoHipolito](https://github.com/EnzoHipolito) |
-| **Email** | enzohipolito7@gmail.com |
-| **Product Owner** | Carlos Roberto da Silva Filho |
+### Título
+Indiana Bones
+
+### Desenvolvedor
+Enzo dos Santos Hipolito
+
+### GitHub 
+[@EnzoHipolito](https://github.com/EnzoHipolito)
+
+### Email
+enzohipolito7@gmail.com
+
+### Product Owner
+Carlos Roberto da Silva Filho 
 
 ---
 
@@ -69,8 +76,8 @@ Inspirado no universo de aventura de Indiana Jones, os jogadores controlam explo
 | Fase | Condição | Velocidade dos Obstáculos |
 |---|---|---|
 | **Fase 1** | Início do jogo | 3 |
-| **Fase 2** | Qualquer jogador com > 30 pontos | 3 – 6 (aleatório) |
-| **Fase 3** | Qualquer jogador com > 60 pontos | 7 – 10 (aleatório) |
+| **Fase 2** | Qualquer jogador com > 50 pontos | 3 – 6 (aleatório) |
+| **Fase 3** | Qualquer jogador com > 100 pontos | 7 – 10 (aleatório) |
 
 ### Sistema de Vidas
 
@@ -85,13 +92,6 @@ Inspirado no universo de aventura de Indiana Jones, os jogadores controlam explo
 - Pedra que passa pela tela sem colidir: **+1 ponto**
 - Coletar artefato: **+5 pontos**
 - A pontuação de cada jogador é independente
-
-### Engine
-
-- Renderização via **HTML5 Canvas API** a 60fps com `requestAnimationFrame`
-- Detecção de colisão por **AABB** (Axis-Aligned Bounding Box)
-- Animação dos personagens por **spritesheet** (3 frames)
-- Reposicionamento aleatório dos obstáculos ao saírem da tela
 
 ---
 
@@ -112,6 +112,7 @@ Instale a extensão "Live Server" em seu Visual Studio Code, e clique com o bot�
 **Opção C — Abrir direto** *(pode ter limitações de CORS com imagens)*
 Entre na pasta "game-indiana" no seu explorador de arquivos, e clique em `index.html`.
 
+---
 
 ## 6. Link de Produção
 

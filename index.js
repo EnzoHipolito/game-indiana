@@ -1,18 +1,18 @@
 let des = document.getElementById('des').getContext('2d')
 let canvas = document.getElementById('des')
 
-let carroInimigo = new CarroInimigo(1300, 325, 60, 60, '/img/rock_image.png')
-let carroInimigo2 = new CarroInimigo(1450, 125, 60, 60, '/img/rock_image.png')
-let carroInimigo3 = new CarroInimigo(2030, 200, 60, 60, '/img/rock_image.png')
-let carroInimigo4 = new CarroInimigo(1400, 500, 60, 60, '/img/rock_image.png')
-let carroInimigo5 = new CarroInimigo(1700, 400, 60, 60, '/img/rock_image.png')
+let Inimigo = new Enemy(1300, 325, 60, 60, '/img/rock_image.png')
+let Inimigo2 = new Enemy(1450, 125, 60, 60, '/img/rock_image.png')
+let Inimigo3 = new Enemy(2030, 200, 60, 60, '/img/rock_image.png')
+let Inimigo4 = new Enemy(1400, 500, 60, 60, '/img/rock_image.png')
+let Inimigo5 = new Enemy(1700, 400, 60, 60, '/img/rock_image.png')
 let artefato = new Artefato(1450, 625, 30, 30, '/img/artefact_image.png')
 let artefato2 = new Artefato(2030, 300, 30, 30, '/img/artefact_image.png')
 let artefato3 = new Artefato(1700, 625, 30, 30, '/img/artefact_image.png')
 let heart = new Heart(1700, 500, 30, 30, '/img/heart.png')
 
-let carro  = new Carro(100, 325, 60, 85, './img/indiana_001_bg.png')
-let carro2 = new Carro(100, 500, 60, 85, './img/indiana_001_bg.png')
+let player  = new Personagem(100, 325, 60, 85, './img/indiana_001_bg.png')
+let player2 = new Personagem(100, 500, 60, 85, './img/indiana_001_bg.png')
 
 canvas.style.background = 'url(./img/jungle.png) center/cover'
 
@@ -26,30 +26,27 @@ let fase_txt = new Text()
 let jogar = true
 let fase = 1
 
-// ── Controles ─────────────────────────────────────────────
 document.addEventListener('keydown', (e) => {
     // P1 — W / S
     if (e.key === 'w') {
-        carro.dir = -10
+        player.dir = -10
     } else if (e.key === 's') {
-        carro.dir = 10
-    } else if (e.key === 'f') {
-        carro.vida -= 1
+        player.dir = 10
     }
     // P2 — Setas
     if (e.key === 'ArrowUp') {
-        carro2.dir = -10
+        player2.dir = -10
     } else if (e.key === 'ArrowDown') {
-        carro2.dir = 10
+        player2.dir = 10
     }
 })
 
 document.addEventListener('keyup', (e) => {
     if (e.key === 'w' || e.key === 's') {
-        carro.dir = 0
+        player.dir = 0
     }
     if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-        carro2.dir = 0
+        player2.dir = 0
     }
 })
 
@@ -58,182 +55,180 @@ function random(min, max) {
 }
 
 function game_over() {
-    if (carro.vida <= 0 && carro2.vida <= 0) {
+    if (player.vida <= 0 && player2.vida <= 0) {
         jogar = false
         document.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                carro.vida  = 5
-                carro2.vida = 5
-                carro.pontos  = 0
-                carro2.pontos = 0
-                carro.x = 100
-                carro2.x = 100
+                player.vida  = 5
+                player2.vida = 5
+                player.pontos  = 0
+                player2.pontos = 0
+                player.x = 100
+                player2.x = 100
 
                 jogar = true
                 fase = 1
-                carroInimigo.x  = 1300
-                carroInimigo2.x = 1450
-                carroInimigo3.x = 2030
-                carroInimigo4.x = 1400
-                carroInimigo5.x = 1700
-                carroInimigo.vel  = 3
-                carroInimigo2.vel = 3
-                carroInimigo3.vel = 3
-                carroInimigo4.vel = 3
-                carroInimigo5.vel = 3
+                Inimigo.x  = 1300
+                Inimigo2.x = 1450
+                Inimigo3.x = 2030
+                Inimigo4.x = 1400
+                Inimigo5.x = 1700
+                Inimigo.vel  = 3
+                Inimigo2.vel = 3
+                Inimigo3.vel = 3
+                Inimigo4.vel = 3
+                Inimigo5.vel = 3
             }
         })
     }
 }
 
 function ver_fase() {
-    if ((carro.pontos > 50 || carro2.pontos > 50) && fase == 1) {
+    if ((player.pontos > 50 || player2.pontos > 50) && fase == 1) {
         fase = 2
-        carroInimigo.vel  = random(3, 6)
-        carroInimigo2.vel = random(3, 6)
-        carroInimigo3.vel = random(3, 6)
-        carroInimigo4.vel = random(3, 6)
-        carroInimigo5.vel = random(3, 6)
+        Inimigo.vel  = random(3, 6)
+        Inimigo2.vel = random(3, 6)
+        Inimigo3.vel = random(3, 6)
+        Inimigo4.vel = random(3, 6)
+        Inimigo5.vel = random(3, 6)
         canvas.style.background = 'url(./img/cave.png) center/cover'
-    } else if ((carro.pontos > 100 || carro2.pontos > 100) && fase == 2) {
+    } else if ((player.pontos > 100 || player2.pontos > 100) && fase == 2) {
         fase = 3
-        carroInimigo.vel  = random(7, 10)
-        carroInimigo2.vel = random(7, 10)
-        carroInimigo3.vel = random(7, 10)
-        carroInimigo4.vel = random(7, 10)
-        carroInimigo5.vel = random(7, 10)
+        Inimigo.vel  = random(7, 10)
+        Inimigo2.vel = random(7, 10)
+        Inimigo3.vel = random(7, 10)
+        Inimigo4.vel = random(7, 10)
+        Inimigo5.vel = random(7, 10)
         canvas.style.background = 'url(./img/desert.jpeg) center/cover'
     }
 }
 
 function coleta() {
     // Player 1
-    if (carro.colid(artefato) || carro2.colid(artefato)) {
-        if (carro.colid(artefato))  carro.pontos += 5
-        if (carro2.colid(artefato)) carro2.pontos += 5
+    if (player.colid(artefato) || player2.colid(artefato)) {
+        if (player.colid(artefato))  player.pontos += 5
+        if (player2.colid(artefato)) player2.pontos += 5
         artefato.recomeca()
     }
-    if (carro.colid(artefato2) || carro2.colid(artefato2)) {
-        if (carro.colid(artefato2))  carro.pontos += 5
-        if (carro2.colid(artefato2)) carro2.pontos += 5
+    if (player.colid(artefato2) || player2.colid(artefato2)) {
+        if (player.colid(artefato2))  player.pontos += 5
+        if (player2.colid(artefato2)) player2.pontos += 5
         artefato2.recomeca()
     }
-    if (carro.colid(artefato3) || carro2.colid(artefato3)) {
-        if (carro.colid(artefato3))  carro.pontos += 5
-        if (carro2.colid(artefato3)) carro2.pontos += 5
+    if (player.colid(artefato3) || player2.colid(artefato3)) {
+        if (player.colid(artefato3))  player.pontos += 5
+        if (player2.colid(artefato3)) player2.pontos += 5
         artefato3.recomeca()
     }
-    if (carro.colid(heart) || carro2.colid(heart)) {
-        if (carro.colid(heart))  carro.vida += 1
-        if (carro2.colid(heart)) carro2.vida += 1
+    if (player.colid(heart) || player2.colid(heart)) {
+        if (player.colid(heart))  player.vida += 1
+        if (player2.colid(heart)) player2.vida += 1
         heart.recomeca()
     }
 }
 
 function colisao() {
     // Player 1
-    if (carro.colid(carroInimigo))  {  carroInimigo.recomeca();  carro.vida -= 1 }
-    if (carro.colid(carroInimigo2)) {  carroInimigo2.recomeca(); carro.vida -= 1 }
-    if (carro.colid(carroInimigo3)) {  carroInimigo3.recomeca(); carro.vida -= 1 }
-    if (carro.colid(carroInimigo4)) {  carroInimigo4.recomeca(); carro.vida -= 1 }
-    if (carro.colid(carroInimigo5)) {  carroInimigo5.recomeca(); carro.vida -= 1 }
+    if (player.colid(Inimigo))  {  Inimigo.recomeca();  player.vida -= 1 }
+    if (player.colid(Inimigo2)) {  Inimigo2.recomeca(); player.vida -= 1 }
+    if (player.colid(Inimigo3)) {  Inimigo3.recomeca(); player.vida -= 1 }
+    if (player.colid(Inimigo4)) {  Inimigo4.recomeca(); player.vida -= 1 }
+    if (player.colid(Inimigo5)) {  Inimigo5.recomeca(); player.vida -= 1 }
     // Player 2
-    if (carro2.colid(carroInimigo))  {  carroInimigo.recomeca();  carro2.vida -= 1 }
-    if (carro2.colid(carroInimigo2)) {  carroInimigo2.recomeca(); carro2.vida -= 1 }
-    if (carro2.colid(carroInimigo3)) {  carroInimigo3.recomeca(); carro2.vida -= 1 }
-    if (carro2.colid(carroInimigo4)) {  carroInimigo4.recomeca(); carro2.vida -= 1 }
-    if (carro2.colid(carroInimigo5)) {  carroInimigo5.recomeca(); carro2.vida -= 1 }
+    if (player2.colid(Inimigo))  {  Inimigo.recomeca();  player2.vida -= 1 }
+    if (player2.colid(Inimigo2)) {  Inimigo2.recomeca(); player2.vida -= 1 }
+    if (player2.colid(Inimigo3)) {  Inimigo3.recomeca(); player2.vida -= 1 }
+    if (player2.colid(Inimigo4)) {  Inimigo4.recomeca(); player2.vida -= 1 }
+    if (player2.colid(Inimigo5)) {  Inimigo5.recomeca(); player2.vida -= 1 }
 }
 
 function pontuacao() {
-    if (carro.point(carroInimigo) || carro2.point(carroInimigo)) {
-        if (carro.point(carroInimigo))  carro.pontos += 1
-        if (carro2.point(carroInimigo)) carro2.pontos += 1
-        carroInimigo.recomeca()
+    if (player.point(Inimigo) || player2.point(Inimigo)) {
+        if (player.point(Inimigo))  player.pontos += 1
+        if (player2.point(Inimigo)) player2.pontos += 1
+        Inimigo.recomeca()
     }
-    if (carro.point(carroInimigo2) || carro2.point(carroInimigo2)) {
-        if (carro.point(carroInimigo2))  carro.pontos += 1
-        if (carro2.point(carroInimigo2)) carro2.pontos += 1
-        carroInimigo2.recomeca()
+    if (player.point(Inimigo2) || player2.point(Inimigo2)) {
+        if (player.point(Inimigo2))  player.pontos += 1
+        if (player2.point(Inimigo2)) player2.pontos += 1
+        Inimigo2.recomeca()
     }
-    if (carro.point(carroInimigo3) || carro2.point(carroInimigo3)) {
-        if (carro.point(carroInimigo3))  carro.pontos += 1
-        if (carro2.point(carroInimigo3)) carro2.pontos += 1
-        carroInimigo3.recomeca()
+    if (player.point(Inimigo3) || player2.point(Inimigo3)) {
+        if (player.point(Inimigo3))  player.pontos += 1
+        if (player2.point(Inimigo3)) player2.pontos += 1
+        Inimigo3.recomeca()
     }
-    if (carro.point(carroInimigo4) || carro2.point(carroInimigo4)) {
-        if (carro.point(carroInimigo4))  carro.pontos += 1
-        if (carro2.point(carroInimigo4)) carro2.pontos += 1
-        carroInimigo4.recomeca()
+    if (player.point(Inimigo4) || player2.point(Inimigo4)) {
+        if (player.point(Inimigo4))  player.pontos += 1
+        if (player2.point(Inimigo4)) player2.pontos += 1
+        Inimigo4.recomeca()
     }
-    if (carro.point(carroInimigo5) || carro2.point(carroInimigo5)) {
-        if (carro.point(carroInimigo5))  carro.pontos += 1
-        if (carro2.point(carroInimigo5)) carro2.pontos += 1
-        carroInimigo5.recomeca()
+    if (player.point(Inimigo5) || player2.point(Inimigo5)) {
+        if (player.point(Inimigo5))  player.pontos += 1
+        if (player2.point(Inimigo5)) player2.pontos += 1
+        Inimigo5.recomeca()
     }
 }
 
 function desenha() {
     if (jogar) {
-        carroInimigo.des_carro()
-        carroInimigo2.des_carro()
-        carroInimigo3.des_carro()
-        carroInimigo4.des_carro()
-        carroInimigo5.des_carro()
-        artefato.des_carro()
-        artefato2.des_carro()
-        artefato3.des_carro()
-        heart.des_carro()
+        Inimigo.des_personagem()
+        Inimigo2.des_personagem()
+        Inimigo3.des_personagem()
+        Inimigo4.des_personagem()
+        Inimigo5.des_personagem()
+        artefato.des_personagem()
+        artefato2.des_personagem()
+        artefato3.des_personagem()
+        heart.des_personagem()
 
-        // HUD P1 — topo (idêntico ao original)
-        t1.des_text('Pontos: ' + carro.pontos, 1000, 40, 'yellow', '26px Arial')
-        t2.des_text('Vidas: '  + carro.vida,     40, 40, 'red',    '26px Arial')
+        t1.des_text('Pontos: ' + player.pontos, 1000, 40, 'yellow', '26px Arial')
+        t2.des_text('Vidas: '  + player.vida,     40, 40, 'red',    '26px Arial')
         fase_txt.des_text('Fase: ' + fase,       550, 40, 'white',  '26px Arial')
         
-        // HUD P2 — fundo (réplica exata, y=690)
-        t4.des_text('Pontos: ' + carro2.pontos, 1000, 690, 'yellow', '26px Arial')
-        t5.des_text('Vidas: '  + carro2.vida,     40, 690, 'red',    '26px Arial')
+        t4.des_text('Pontos: ' + player2.pontos, 1000, 690, 'yellow', '26px Arial')
+        t5.des_text('Vidas: '  + player2.vida,     40, 690, 'red',    '26px Arial')
         
     } else {
         t1.des_text('GAME OVER',                                    400, 300, 'yellow', '60px Arial')
-        t2.des_text('P1 - Pontuação Final: ' + carro.pontos,        430, 370, 'white',  '25px Arial')
-        t3.des_text('P2 - Pontuação Final: ' + carro2.pontos,       430, 410, 'white',  '25px Arial')
+        t2.des_text('P1 - Pontuação Final: ' + player.pontos,        430, 370, 'white',  '25px Arial')
+        t3.des_text('P2 - Pontuação Final: ' + player2.pontos,       430, 410, 'white',  '25px Arial')
         t4.des_text('Pressione ENTER para recomeçar o jogo!',        370, 470, 'white',  '25px Arial')
     }
 }
 
 function atualiza() {
     if (jogar) {
-        if (carro.vida  > 0){
-            carro.mov_car()
-            carro.des_carro()
-            t3.des_text('P1', carro.x  + 18, carro.y  - 8, '#4da6ff', 'bold 16px Arial')
+        if (player.vida  > 0){
+            player.mov_player()
+            player.des_personagem()
+            t3.des_text('P1', player.x  + 18, player.y  - 8, '#4da6ff', 'bold 16px Arial')
         }else{
-            carro.x = -300
+            player.x = -300
         }
-        if (carro2.vida > 0){
-            carro2.mov_car()
-            carro2.des_carro()
-            t3.des_text('P2', carro2.x + 18, carro2.y - 8, '#ff6b6b', 'bold 16px Arial')
+        if (player2.vida > 0){
+            player2.mov_player()
+            player2.des_personagem()
+            t3.des_text('P2', player2.x + 18, player2.y - 8, '#ff6b6b', 'bold 16px Arial')
         }else{
-            carro2.x = -300
+            player2.x = -300
         }
         if(artefato.vel == 0 && artefato2.vel == 0 && artefato3.vel == 0){
             artefato.vel = random(3, 6)
             artefato2.vel = random(3, 6)
             artefato3.vel = random(3, 6)
         }
-        carroInimigo.mov_car()
-        carroInimigo2.mov_car()
-        carroInimigo3.mov_car()
-        carroInimigo4.mov_car()
-        carroInimigo5.mov_car()
+        Inimigo.mov_enemy()
+        Inimigo2.mov_enemy()
+        Inimigo3.mov_enemy()
+        Inimigo4.mov_enemy()
+        Inimigo5.mov_enemy()
         artefato.mov_art()
         artefato2.mov_art()
         artefato3.mov_art()
         heart.mov_heart()
-        carro.anim('indiana_00')
-        carro2.anim('indiana_00')
+        player.anim('indiana_00')
+        player2.anim('indiana_00')
         colisao()
         pontuacao()
         ver_fase()

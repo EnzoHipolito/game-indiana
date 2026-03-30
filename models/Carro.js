@@ -7,73 +7,14 @@ class Obj{
         this.a = a
     }
 
-    des_carro(){
+    des_personagem(){
         let img = new Image()
         img.src = this.a
         des.drawImage(img, this.x, this.y, this.w, this.h)
-    }
-
-    des_quad(){
-        des.fillStyle = this.a
-        des.fillRect(this.x, this.y, this.w, this.h,this.a)
-    }
-
-    des_carro_manual() {
-        // Roda dianteira esquerda (agora superior frente)
-        des.beginPath()
-        des.lineWidth = '5'
-        des.strokeStyle = 'rgb(186, 186, 186)'
-        des.fillStyle = 'darkorange'
-        des.rect(this.x + 60, this.y-50, 10, 10) 
-        des.stroke()
-        des.fill()
-    
-        // Roda dianteira direita (agora inferior frente)
-        des.beginPath()
-        des.rect(this.x + 60, this.y-10, 10, 10)
-        des.stroke()
-        des.fill()
-    
-        // Roda traseira esquerda (agora superior trás)
-        des.beginPath()
-        des.rect(this.x + 10, this.y-52, 10, 10)
-        des.stroke()
-        des.fill()
-    
-        // Roda traseira direita (agora inferior trás)
-        des.beginPath()
-        des.rect(this.x + 10, this.y-8, 10, 10)
-        des.stroke()
-        des.fill()
-    
-        // Trapézio do corpo (Corpo principal rotacionado)
-        des.beginPath()
-        des.moveTo(this.x, this.y - 50) 
-        des.lineTo(this.x, this.y)
-        des.lineTo(this.x + 50, this.y - 10)
-        des.lineTo(this.x + 50, this.y - 40)
-        des.closePath()
-        des.lineWidth = '5'
-        des.strokeStyle = 'rgb(186, 186, 186)'
-        des.fillStyle = this.a
-        des.stroke()
-        des.fill()
-    
-        // Corpo frente (retângulo do "nariz")
-        des.beginPath()
-        des.rect(this.x + 50, this.y - 40, 20, 30)
-        des.stroke()
-        des.fill()
-    
-        // Asa frontal (vertical na ponta direita)
-        des.beginPath()
-        des.rect(this.x + 70, this.y - 50, 10, 50)
-        des.stroke()
-        des.fill()
-    }    
+    } 
 }
 
-class Carro extends Obj{
+class Personagem extends Obj{
 
     dir = 0
     vida = 5
@@ -81,7 +22,7 @@ class Carro extends Obj{
     frame = 1
     tempo = 0
 
-    mov_car(){
+    mov_player(){
         this.y += this.dir
         if(this.y < 62){
             this.y = 62
@@ -111,14 +52,13 @@ class Carro extends Obj{
 
     anim(nome){
         this.tempo +=1
-        if(this.tempo > 12){
+        if(this.tempo > 20){
             this.tempo = 0
             this.frame +=1
         }
         if(this.frame>3){
             this.frame=1
         }
-        //carro_001_bg
         this.a = "./img/"+nome+this.frame+"_bg.png"
     }
 
@@ -126,7 +66,7 @@ class Carro extends Obj{
     
 }
 
-class CarroInimigo extends Obj{
+class Enemy extends Obj{
 
     vel = 3
 
@@ -135,7 +75,7 @@ class CarroInimigo extends Obj{
         this.y =  Math.floor(Math.random() * (638 - 62) + 62)
     }
 
-    mov_car(){
+    mov_enemy(){
         this.x -= this.vel
         if(this.x <= - 200){            
             this.recomeca()         
