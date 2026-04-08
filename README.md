@@ -4,7 +4,7 @@
 
 # Indiana Bones
 
-**Jogo de corrida para dois jogadores no navegador**
+**Jogo de corrida para um ou dois jogadores no navegador**
 
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
@@ -37,7 +37,7 @@ Carlos Roberto da Silva Filho
 
 ### Descrição
 
-Indiana Bones é um jogo 2D de corrida e desvio desenvolvido inteiramente com HTML5 Canvas e JavaScript puro, sem dependências externas. Dois jogadores competem simultaneamente na mesma tela, desviando de obstáculos e coletando artefatos para acumular pontos.
+Indiana Bones é um jogo 2D de corrida e desvio desenvolvido inteiramente com HTML5 Canvas e JavaScript puro. Onde os jogadores competem simultaneamente na mesma tela, desviando de obstáculos e coletando artefatos para acumular pontos.
 
 ### Objetivo
 

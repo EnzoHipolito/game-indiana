@@ -11,8 +11,8 @@ let artefato2 = new Artefato(2030, 300, 30, 30, '/img/artefact_image.png')
 let artefato3 = new Artefato(1700, 625, 30, 30, '/img/artefact_image.png')
 let heart = new Heart(1700, 500, 30, 30, '/img/heart.png')
 
-let player = new Personagem(100, 325, 60, 85, './img/indiana_001_bg.png')
-let player2 = new Personagem(100, 500, 60, 85, './img/indiana_001_bg.png')
+let player = new Personagem(100, 250, 60, 85, './img/indiana_001_bg.png')
+let player2 = new Personagem(100, 400, 60, 85, './img/indiana_002_bg.png')
 
 canvas.style.background = 'url(./img/jungle.png) center/cover'
 
@@ -27,13 +27,11 @@ let jogar = true
 let fase = 1
 
 document.addEventListener('keydown', (e) => {
-    // P1 — W / S
     if (e.key === 'w') {
         player.dir = -10
     } else if (e.key === 's') {
         player.dir = 10
     }
-    // P2 — Setas
     if (e.key === 'ArrowUp') {
         player2.dir = -10
     } else if (e.key === 'ArrowDown') {
@@ -78,6 +76,7 @@ function game_over() {
                 Inimigo3.vel = 3
                 Inimigo4.vel = 3
                 Inimigo5.vel = 3
+                canvas.style.background = 'url(./img/jungle.png) center/cover'
             }
         })
     }
@@ -104,7 +103,6 @@ function ver_fase() {
 }
 
 function coleta() {
-    // Player 1
     if (player.colid(artefato) || player2.colid(artefato)) {
         if (player.colid(artefato)) player.pontos += 5
         if (player2.colid(artefato)) player2.pontos += 5
@@ -128,13 +126,11 @@ function coleta() {
 }
 
 function colisao() {
-    // Player 1
     if (player.colid(Inimigo)) { Inimigo.recomeca(); player.vida -= 1 }
     if (player.colid(Inimigo2)) { Inimigo2.recomeca(); player.vida -= 1 }
     if (player.colid(Inimigo3)) { Inimigo3.recomeca(); player.vida -= 1 }
     if (player.colid(Inimigo4)) { Inimigo4.recomeca(); player.vida -= 1 }
     if (player.colid(Inimigo5)) { Inimigo5.recomeca(); player.vida -= 1 }
-    // Player 2
     if (player2.colid(Inimigo)) { Inimigo.recomeca(); player2.vida -= 1 }
     if (player2.colid(Inimigo2)) { Inimigo2.recomeca(); player2.vida -= 1 }
     if (player2.colid(Inimigo3)) { Inimigo3.recomeca(); player2.vida -= 1 }
@@ -182,18 +178,28 @@ function desenha() {
         artefato3.des_personagem()
         heart.des_personagem()
 
-        t1.des_text('Pontos: ' + player.pontos, 1000, 40, 'yellow', '26px Arial')
-        t2.des_text('Vidas: ' + player.vida, 40, 40, 'red', '26px Arial')
+        t1.des_text('P1 — Pontos: ' + player.pontos, 900, 40, 'yellow', '24px Arial')
+        t2.des_text('P1 — Vidas: ' + player.vida, 40, 40, 'red', '24px Arial')
         fase_txt.des_text('Fase: ' + fase, 550, 40, 'white', '26px Arial')
 
-        t4.des_text('Pontos: ' + player2.pontos, 1000, 690, 'yellow', '26px Arial')
-        t5.des_text('Vidas: ' + player2.vida, 40, 690, 'red', '26px Arial')
+        t4.des_text('P2 — Pontos: ' + player2.pontos, 900, 690, 'yellow', '24px Arial')
+        t5.des_text('P2 — Vidas: ' + player2.vida, 40, 690, 'red', '24px Arial')
 
     } else {
-        t1.des_text('GAME OVER', 400, 300, 'yellow', '60px Arial')
-        t2.des_text('P1 - Pontuação Final: ' + player.pontos, 430, 370, 'white', '25px Arial')
-        t3.des_text('P2 - Pontuação Final: ' + player2.pontos, 430, 410, 'white', '25px Arial')
-        t4.des_text('Pressione ENTER para recomeçar o jogo!', 370, 470, 'white', '25px Arial')
+        let vencedor = ''
+        if (player.pontos > player2.pontos) {
+            vencedor = 'Vencedor: P1!'
+        } else if (player2.pontos > player.pontos) {
+            vencedor = 'Vencedor: P2!'
+        } else {
+            vencedor = 'Empate!'
+        }
+
+        t1.des_text('GAME OVER', 400, 250, 'yellow', '60px Arial')
+        t2.des_text(vencedor, 490, 320, '#4da6ff', '30px Arial')
+        t3.des_text('P1 — Pontuação Final: ' + player.pontos, 420, 385, '#4da6ff', '24px Arial')
+        t4.des_text('P2 — Pontuação Final: ' + player2.pontos, 420, 425, '#ff6b6b', '24px Arial')
+        t5.des_text('Pressione ENTER para recomeçar!', 360, 490, 'white', '25px Arial')
     }
 }
 
